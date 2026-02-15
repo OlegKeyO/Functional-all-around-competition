@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функциональное многоборье Забайкальского края | Официальный сайт</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые сбросы и переменные */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a2b5c; /* Темно-синий - основной цвет */
+            --secondary: #c8102e; /* Красный - акцентный цвет */
+            --accent: #f5a623; /* Оранжевый - второй акцент */
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Анимация появления */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Шапка и навигация */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(26, 43, 92, 0.95);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .nav-cta:hover {
+            background-color: #a00d24;
+            color: white;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero секция */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(26, 43, 92, 0.8));
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-title span {
+            color: var(--secondary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #a00d24;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(200, 16, 46, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Секция "Что такое ФМ?" */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-dark {
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Стили для видео в секции "Что такое ФМ?" */
+        .video-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 43, 92, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .video-wrapper.playing .video-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: #a00d24;
+            box-shadow: 0 0 20px rgba(200, 16, 46, 0.5);
+        }
+
+        .video-title {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            max-width: 80%;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-hint {
+            color: #ddd;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .video-info {
+            padding: 25px;
+            background: white;
+        }
+
+        .video-info h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-info h3 i {
+            color: var(--secondary);
+        }
+
+        .video-info p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .video-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .video-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .video-meta i {
+            color: var(--secondary);
+        }
+
+        .video-wrapper.playing:hover .video-overlay {
+            opacity: 0.7;
+            pointer-events: auto;
+        }
+
+        .video-wrapper.sound-on .play-button {
+            background: var(--accent);
+        }
+
+        /* Секция WOD дня */
+        .wod-section {
+            background: linear-gradient(rgba(26, 43, 92, 0.9), rgba(26, 43, 92, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .wod-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .wod-title::after {
+            background-color: var(--accent);
+        }
+
+        .wod-date {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .wod-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .wod-name {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .wod-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .wod-workout {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .wod-workout h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .wod-workout ol {
+            margin-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .wod-workout li {
+            margin-bottom: 0.8rem;
+        }
+
+        .wod-scale {
+            background-color: rgba(245, 166, 35, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .wod-scale h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Секция быстрых ссылок */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .quick-link {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .quick-link-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .quick-link-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .quick-link:hover .quick-link-image img {
+            transform: scale(1.1);
+        }
+
+        .quick-link-content {
+            padding: 1.5rem;
+        }
+
+        .quick-link-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .quick-link-desc {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .quick-link-arrow {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* Стили для секции с залами */
+        .gyms-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Контейнер для карты с красивой рамкой */
+        .map-container {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            height: 450px;
+            border: 2px solid var(--primary);
+            background: linear-gradient(145deg, #ffffff, #f5f7fa);
+        }
+
+        .map-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .map-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .map-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+        }
+
+        .map-corner-tl {
+            top: 15px;
+            left: 15px;
+            border-top: 3px solid var(--secondary);
+            border-left: 3px solid var(--secondary);
+            border-radius: 8px 0 0 0;
+        }
+
+        .map-corner-tr {
+            top: 15px;
+            right: 15px;
+            border-top: 3px solid var(--secondary);
+            border-right: 3px solid var(--secondary);
+            border-radius: 0 8px 0 0;
+        }
+
+        .map-corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-bottom: 3px solid var(--secondary);
+            border-left: 3px solid var(--secondary);
+            border-radius: 0 0 0 8px;
+        }
+
+        .map-corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-bottom: 3px solid var(--secondary);
+            border-right: 3px solid var(--secondary);
+            border-radius: 0 0 8px 0;
+        }
+
+        .map-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary), #2a3f7a);
+            color: white;
+            padding: 12px 20px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-header i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .map-header span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .map-legend {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 15px;
+            border-radius: 8px;
+            z-index: 3;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(26, 43, 92, 0.1);
+            min-width: 150px;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .legend-color.gym {
+            background: var(--secondary);
+        }
+
+        .legend-color.center {
+            background: var(--accent);
+        }
+
+        .map-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .map-btn {
+            background: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .map-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .map-btn i {
+            font-size: 0.9rem;
+        }
+
+        .gyms-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .gym-tab {
+            padding: 8px 16px;
+            background: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .gym-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .gym-tab:hover:not(.active) {
+            background: #ddd;
+        }
+
+        .gym-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .gym-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gym-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .gym-status {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .gym-status.open {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .gym-status.closed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .gym-card-body p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
+        }
+
+        .gym-card-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            padding: 6px 15px;
+            font-size: 0.85rem;
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-logo span {
+            color: var(--secondary);
+        }
+
+        .footer-description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gyms-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--primary);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .video-wrapper {
+                height: 300px;
+            }
+            
+            .play-button {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .video-title {
+                font-size: 1.2rem;
+            }
+            
+            .video-info {
+                padding: 20px;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+            
+            .map-legend {
+                bottom: 50px;
+                right: 10px;
+                padding: 8px 12px;
+                min-width: 130px;
+            }
+            
+            .map-controls {
+                bottom: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .map-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .wod-container {
+                padding: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .video-wrapper {
+                height: 250px;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .video-title {
+                font-size: 1.1rem;
+            }
+            
+            .video-meta {
+                gap: 15px;
+            }
+            
+            .video-meta span {
+                font-size: 0.85rem;
+            }
+            
+            .gyms-tabs {
+                justify-content: center;
+            }
+            
+            .gym-tab {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .map-header {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .map-legend {
+                display: none; /* Скрываем легенду на очень маленьких экранах */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-img">
+                    <img src="images/logo.png" alt="ФМ Забайкалье" width="50" height="50">
+                </div>
+                <div class="logo-text">
+                    ФМ Забайкалье
+                    <span>Официальный сайт</span>
+                </div>
+            </a>
+            
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#" class="nav-link">Главная</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">Что такое ФМ?</a></li>
+                <li class="nav-item"><a href="#gyms" class="nav-link">Залы</a></li>
+                <li class="nav-item"><a href="#wod" class="nav-link">WOD</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Соревнования</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Команда</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Новости</a></li>
+                <li class="nav-item"><a href="#" class="nav-link nav-cta">Вступить</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero секция с видео -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <video autoplay muted loop class="hero-video" id="heroVideo">
+            <source src="video/hero.mp4" type="video/mp4">
+            <!-- Запасное изображение если видео не загрузится -->
+        </video>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Функциональное <span>многоборье</span></h1>
+            <p class="hero-subtitle">Развиваем функциональный фитнес, готовим чемпионов, объединяем спортивное сообщество Забайкальского края</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">Узнать о спорте</a>
+                <a href="#gyms" class="btn btn-secondary">Найти зал</a>
+                <a href="#" class="btn btn-secondary">Календарь соревнований</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Что такое ФМ?" -->
+    <section id="about" class="section section-dark fade-in">
+        <div class="container">
+            <h2 class="section-title">Что такое функциональное многоборье?</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>Функциональное многоборье (ФМ)</strong> — это высокоинтенсивная тренировочная дисциплина, сочетающая элементы тяжелой атлетики, гимнастики и кардио. Цель — всестороннее развитие физических качеств: силы, выносливости, скорости, координации и гибкости.</p>
+                    <p>Каждую тренировку (WOD — «тренировка дня») можно масштабировать под любой уровень подготовки, что делает ФМ доступным для всех — от новичка до элитного атлета.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="feature-title">Функциональность</h3>
+                            <p>Упражнения приближены к реальным движениям</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Интенсивность</h3>
+                            <p>Высокая нагрузка за короткое время</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="feature-title">Сообщество</h3>
+                            <p>Поддержка и мотивация в группе</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Безопасность</h3>
+                            <p>Техника и контроль под руководством тренера</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <video loop muted autoplay playsinline>
+                                <source src="video/hero.mp4" type="video/mp4">
+                                Ваш браузер не поддерживает видео
+                            </video>
+                            
+                            <div class="video-overlay">
+                                <div class="play-button">
+                                    <i class="fas fa-volume-mute" id="volumeIcon"></i>
+                                </div>
+                                <p class="video-title">Тренировка по функциональному многоборью</p>
+                                <p class="video-hint">Нажмите, чтобы включить звук</p>
+                            </div>
+                        </div>
+                        
+                        <div class="video-info">
+                            <h3><i class="fas fa-video"></i> ФМ в Забайкалье</h3>
+                            <p>Посмотрите, как проходят тренировки в наших залах. Реальное видео с занятий в Чите.</p>
+                            <div class="video-meta">
+                                <span><i class="fas fa-sync-alt"></i> Автовоспроизведение</span>
+                                <span><i class="far fa-calendar"></i> Январь 2024</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Чита</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция WOD дня -->
+    <section id="wod" class="section wod-section fade-in">
+        <div class="container">
+            <h2 class="section-title wod-title">Тренировка дня (WOD)</h2>
+            <p class="wod-date">17 Января 2026</p>
+            
+            <div class="wod-container">
+                <h3 class="wod-name">"Забайкальский рубеж"</h3>
+                <p class="wod-description">Комплекс на развитие мышечной выносливости и дыхательной системы. Контролируйте темп на протяжении всех раундов.</p>
+                
+                <div class="wod-workout">
+                    <h4>Фокус: Гимнастика + Кардио</h4>
+                    <p><strong>На время:</strong> 5 раундов</p>
+                    <ol>
+                        <li>Бег 400 метров</li>
+                        <li>15 подтягиваний</li>
+                        <li>20 отжиманий</li>
+                        <li>30 воздушных приседаний</li>
+                    </ol>
+                </div>
+                
+                <div class="wod-scale">
+                    <h4>Для новичков (Scaled):</h4>
+                    <p>Замена подтягиваний на тягу резины, отжимания с колен, приседания с ограничением глубины.</p>
+                </div>
+                
+                <a href="#" class="btn btn-primary">Все тренировки</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция с залами в Забайкальском крае -->
+    <section id="gyms" class="section section-dark fade-in">
+        <div class="container">
+            <h2 class="section-title">Наши залы в Забайкалье</h2>
+            
+            <div class="gyms-container">
+                <div class="gyms-map">
+                    <!-- Контейнер карты с красивой рамкой -->
+                    <div class="map-container">
+                        <!-- Заголовок карты -->
+                        <div class="map-header">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Карта залов функционального многоборья</span>
+                        </div>
+                        
+                        <!-- Декоративные уголки -->
+                        <div class="map-decoration">
+                            <div class="map-corner map-corner-tl"></div>
+                            <div class="map-corner map-corner-tr"></div>
+                            <div class="map-corner map-corner-bl"></div>
+                            <div class="map-corner map-corner-br"></div>
+                        </div>
+                        
+                        <!-- Яндекс.Карты через Iframe -->
+                        <div class="map-frame">
+                            <iframe 
+                                id="yandex-map-frame"
+                                src="https://yandex.ru/map-widget/v1/?ll=113.515108%2C52.037037&z=17&l=map&pt=113.515108%2C52.037037%2Cpm2rdl" 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0" 
+                                style="border: 0;"
+                                allowfullscreen
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        
+                        <!-- Контролы карты -->
+                        <div class="map-controls">
+                            <button class="map-btn" id="zoomInBtn">
+                                <i class="fas fa-search-plus"></i> Приблизить
+                            </button>
+                            <button class="map-btn" id="zoomOutBtn">
+                                <i class="fas fa-search-minus"></i> Отдалить
+                            </button>
+                            <button class="map-btn" id="locateBtn">
+                                <i class="fas fa-location-arrow"></i> Мое местоположение
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gyms-list">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Аффилированные залы</h3>
+                    
+                    <div class="gyms-tabs">
+                        <button class="gym-tab active" data-city="all">Все залы</button>
+                        <button class="gym-tab" data-city="chita">Чита</button>
+                    </div>
+                    
+                    <div class="gyms-cards">
+                        <!-- Карточка зала в Чите -->
+                        <div class="gym-card" data-city="chita" data-coords="52.037037,113.515108">
+                            <div class="gym-card-header">
+                                <h4>ФМ Забайкальского края</h4>
+                                <span class="gym-status open">Открыто</span>
+                            </div>
+                            <div class="gym-card-body">
+                                <p><i class="fas fa-map-marker-alt"></i> г. Чита, ул. Чкалова, 1</p>
+                                <p><i class="fas fa-phone"></i> +7‒914‒485‒54‒40</p>
+                                <p><i class="fas fa-user"></i> Тренер: Седов Денис</p>
+                                <p><i class="fas fa-clock"></i> Ежедневно: 9:00-21:00</p>
+                            </div>
+                            <div class="gym-card-footer">
+                                <a href="#" class="btn btn-small btn-primary">Подробнее</a>
+                                <a href="tel:+79144855440" class="btn btn-small btn-secondary">Позвонить</a>
+                                <button class="btn btn-small btn-secondary show-on-map" data-coords="52.037037,113.515108">
+                                    <i class="fas fa-map-marker-alt"></i> На карте
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция быстрых ссылок -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">Присоединяйтесь к движению</h2>
+            
+            <div class="quick-links">
+                <a href="#" class="quick-link">
+                    <div class="quick-link-image">
+                        <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Соревнования">
+                    </div>
+                    <div class="quick-link-content">
+                        <h3 class="quick-link-title">Соревнования</h3>
+                        <p class="quick-link-desc">Календарь соревнований, результаты, фото и видеоотчеты</p>
+                        <div class="quick-link-arrow">Узнать больше →</div>
+                    </div>
+                </a>
+                
+                <a href="#gyms" class="quick-link">
+                    <div class="quick-link-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Залы">
+                    </div>
+                    <div class="quick-link-content">
+                        <h3 class="quick-link-title">Найти зал</h3>
+                        <p class="quick-link-desc">Аффилированные залы и секции в Забайкальском крае</p>
+                        <div class="quick-link-arrow">Найти рядом →</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="quick-link">
+                    <div class="quick-link-image">
+                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Новости">
+                    </div>
+                    <div class="quick-link-content">
+                        <h3 class="quick-link-title">Новости</h3>
+                        <p class="quick-link-desc">Свежие события, анонсы, интервью с атлетами и тренерами</p>
+                        <div class="quick-link-arrow">Читать →</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">ФМ <span>Забайкалье</span></div>
+                    <p class="footer-description">Официальный сайт Федерации функционального многоборья Забайкальского края. Развиваем спорт, объединяем сообщество, готовим чемпионов.</p>
+                    <div class="footer-social">
+                        <a href="https://vk.com/ffmzab" class="social-icon" target="_blank">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-heading">Разделы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#about">Что такое ФМ?</a></li>
+                        <li><a href="#">Наша команда</a></li>
+                        <li><a href="#wod">Тренировки (WOD)</a></li>
+                        <li><a href="#">Соревнования</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-heading">Ресурсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#gyms">Аффилированные залы</a></li>
+                        <li><a href="#">Новости и статьи</a></li>
+                        <li><a href="#">Мероприятия</a></li>
+                        <li><a href="#">Документы</a></li>
+                        <li><a href="#">Фотогалерея</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-heading">Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Забайкальский край</li>
+                        <li><i class="fas fa-envelope"></i> info@fm-zab.ru</li>
+                        <li><i class="fas fa-phone"></i> +7 (XXX) XXX-XX-XX</li>
+                        <li><i class="fas fa-user"></i> Председатель: [Имя Фамилия]</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 Функциональное многоборье Забайкальского края. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            if (navMenu) navMenu.classList.remove('active');
+            if (hamburger) hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        }));
+        
+        // Плавная прокрутка (полифилл для Safari)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    e.preventDefault();
+                    
+                    // Проверяем поддержку smooth scroll
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Полифилл для старых браузеров
+                        const startPosition = window.pageYOffset;
+                        const targetPosition = targetElement.offsetTop - 80;
+                        const distance = targetPosition - startPosition;
+                        const duration = 500;
+                        let start = null;
+                        
+                        function step(timestamp) {
+                            if (!start) start = timestamp;
+                            const progress = timestamp - start;
+                            const percentage = Math.min(progress / duration, 1);
+                            
+                            // Эффект easing
+                            const easeInOutCubic = t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
+                            
+                            window.scrollTo(0, startPosition + (distance * easeInOutCubic(percentage)));
+                            
+                            if (progress < duration) {
+                                window.requestAnimationFrame(step);
+                            }
+                        }
+                        
+                        window.requestAnimationFrame(step);
+                    }
+                }
+            });
+        });
+        
+        // Видео фон для героя (запасной вариант)
+        const heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            heroVideo.addEventListener('error', function() {
+                // Если видео не загрузилось, ставим фоновое изображение
+                const heroSection = document.querySelector('.hero');
+                if (heroSection) {
+                    heroSection.style.backgroundImage = 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80")';
+                    heroVideo.style.display = 'none';
+                }
+            });
+            
+            // Для iOS - добавляем атрибуты для корректной работы
+            heroVideo.setAttribute('playsinline', '');
+            heroVideo.setAttribute('webkit-playsinline', '');
+        }
+        
+        // Анимация при скролле
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (!header) return;
+            
+            // Дебаунсинг для производительности на мобильных
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(26, 43, 92, 0.98)';
+                    header.style.padding = '0.7rem 0';
+                } else {
+                    header.style.backgroundColor = 'rgba(26, 43, 92, 0.95)';
+                    header.style.padding = '1rem 0';
+                }
+            }, 10);
+        }, { passive: true }); // Улучшение производительности на мобильных
+
+        // Функция для проверки, открыт ли зал в текущее время
+        function checkGymStatus(openTime, closeTime) {
+            try {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+                const currentTime = currentHour * 60 + currentMinute;
+                
+                // Парсим время открытия и закрытия
+                const openParts = openTime.split(':');
+                const closeParts = closeTime.split(':');
+                
+                const openHour = parseInt(openParts[0], 10);
+                const openMinute = parseInt(openParts[1] || '0', 10);
+                const closeHour = parseInt(closeParts[0], 10);
+                const closeMinute = parseInt(closeParts[1] || '0', 10);
+                
+                // Валидация времени
+                if (isNaN(openHour) || isNaN(openMinute) || isNaN(closeHour) || isNaN(closeMinute)) {
+                    console.error('Некорректный формат времени:', openTime, closeTime);
+                    return false;
+                }
+                
+                const openTimeMinutes = openHour * 60 + openMinute;
+                const closeTimeMinutes = closeHour * 60 + closeMinute;
+                
+                // Если зал работает после полуночи (например, до 1:00)
+                if (closeTimeMinutes < openTimeMinutes) {
+                    // Зал открыт, если текущее время после открытия ИЛИ до закрытия (на следующий день)
+                    return currentTime >= openTimeMinutes || currentTime <= closeTimeMinutes;
+                } else {
+                    // Обычный рабочий день
+                    return currentTime >= openTimeMinutes && currentTime <= closeTimeMinutes;
+                }
+            } catch (error) {
+                console.error('Ошибка при проверке статуса зала:', error);
+                return false;
+            }
+        }
+        
+        // Функция для обновления статуса зала
+        function updateGymStatus() {
+            try {
+                const gymCard = document.querySelector('.gym-card');
+                if (!gymCard) return;
+                
+                const statusElement = gymCard.querySelector('.gym-status');
+                const timeElement = gymCard.querySelector('.gym-card-body p:nth-child(4)');
+                
+                if (!statusElement || !timeElement) return;
+                
+                const timeText = timeElement.textContent;
+                
+                // Извлекаем время работы из текста "Ежедневно: 9:00-21:00"
+                const timeMatch = timeText.match(/(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})/);
+                
+                if (timeMatch) {
+                    const openTime = `${timeMatch[1]}:${timeMatch[2]}`; // 9:00
+                    const closeTime = `${timeMatch[3]}:${timeMatch[4]}`; // 21:00
+                    
+                    const isOpen = checkGymStatus(openTime, closeTime);
+                    
+                    if (isOpen) {
+                        statusElement.textContent = 'Открыто';
+                        statusElement.className = 'gym-status open';
+                    } else {
+                        statusElement.textContent = 'Закрыто';
+                        statusElement.className = 'gym-status closed';
+                    }
+                    
+                    // Добавляем время работы в текст статуса
+                    statusElement.setAttribute('title', `Часы работы: ${openTime}-${closeTime}`);
+                    
+                    // Для мобильных - добавляем data-атрибут
+                    statusElement.setAttribute('data-hours', `${openTime}-${closeTime}`);
+                }
+            } catch (error) {
+                console.error('Ошибка при обновлении статуса зала:', error);
+            }
+        }
+        
+        // Функция для обновления статуса при смене часового пояса или переходе на летнее время
+        function setupTimezoneMonitoring() {
+            // Сохраняем текущее смещение часового пояса
+            let lastTimezoneOffset = new Date().getTimezoneOffset();
+            
+            // Проверяем изменение часового пояса каждые 5 минут
+            setInterval(() => {
+                const currentOffset = new Date().getTimezoneOffset();
+                if (currentOffset !== lastTimezoneOffset) {
+                    lastTimezoneOffset = currentOffset;
+                    updateGymStatus();
+                    console.log('Часовой пояс изменен, обновляем статус');
+                }
+            }, 300000); // 5 минут
+        }
+        
+        // Функция для управления картой
+        function setupMapControls() {
+            const yandexFrame = document.getElementById('yandex-map-frame');
+            const zoomInBtn = document.getElementById('zoomInBtn');
+            const zoomOutBtn = document.getElementById('zoomOutBtn');
+            const locateBtn = document.getElementById('locateBtn');
+            
+            if (!yandexFrame) return;
+            
+            let currentZoom = 17; // Начальный zoom
+            
+            // Функция для обновления карты с новым zoom
+            function updateMapZoom() {
+                const url = `https://yandex.ru/map-widget/v1/?ll=113.515108%2C52.037037&z=${currentZoom}&l=map&pt=113.515108%2C52.037037%2Cpm2rdl`;
+                yandexFrame.src = url;
+            }
+            
+            // Приближение
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', function() {
+                    if (currentZoom < 20) {
+                        currentZoom++;
+                        updateMapZoom();
+                        
+                        // Анимация кнопки
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    }
+                });
+            }
+            
+            // Отдаление
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', function() {
+                    if (currentZoom > 10) {
+                        currentZoom--;
+                        updateMapZoom();
+                        
+                        // Анимация кнопки
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    }
+                });
+            }
+            
+            // Определение местоположения
+            if (locateBtn) {
+                locateBtn.addEventListener('click', function() {
+                    if ("geolocation" in navigator) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            
+                            // Показать местоположение пользователя
+                            const url = `https://yandex.ru/map-widget/v1/?ll=${lng}%2C${lat}&z=15&l=map&pt=${lng}%2C${lat}%2Cpm2blm~113.515108%2C52.037037%2Cpm2rdl`;
+                            yandexFrame.src = url;
+                            
+                            // Анимация успеха
+                            locateBtn.innerHTML = '<i class="fas fa-check"></i> Местоположение найдено';
+                            locateBtn.style.background = '#d4edda';
+                            locateBtn.style.color = '#155724';
+                            
+                            setTimeout(() => {
+                                locateBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Мое местоположение';
+                                locateBtn.style.background = '';
+                                locateBtn.style.color = '';
+                            }, 3000);
+                        }, function(error) {
+                            console.log("Ошибка получения местоположения:", error);
+                            
+                            // Анимация ошибки
+                            locateBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Доступ запрещен';
+                            locateBtn.style.background = '#f8d7da';
+                            locateBtn.style.color = '#721c24';
+                            
+                            setTimeout(() => {
+                                locateBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Мое местоположение';
+                                locateBtn.style.background = '';
+                                locateBtn.style.color = '';
+                            }, 3000);
+                        }, {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        });
+                    } else {
+                        // Браузер не поддерживает геолокацию
+                        locateBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не поддерживается';
+                        locateBtn.style.background = '#fff3cd';
+                        locateBtn.style.color = '#856404';
+                        
+                        setTimeout(() => {
+                            locateBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Мое местоположение';
+                            locateBtn.style.background = '';
+                            locateBtn.style.color = '';
+                        }, 3000);
+                    }
+                });
+            }
+        }
+        
+        // Автовоспроизведение видео в секции "Что такое ФМ?"
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoWrapper = document.querySelector('.video-wrapper');
+            const video = document.querySelector('.video-wrapper video');
+            const playButton = document.querySelector('.play-button');
+            const volumeIcon = document.getElementById('volumeIcon');
+            
+            if (video) {
+                // Настройки для автовоспроизведения (особенно для iOS)
+                video.muted = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('playsinline', '');
+                
+                // Для iOS - предзагрузка
+                video.load();
+                
+                // Пытаемся запустить автовоспроизведение
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Автовоспроизведение заблокировано:", error);
+                        // Показываем кнопку play
+                        if (videoWrapper) videoWrapper.classList.remove('playing');
+                        if (volumeIcon) volumeIcon.className = 'fas fa-play';
+                        
+                        // Для мобильных - добавляем обработчик жеста
+                        if ('ontouchstart' in window) {
+                            document.body.addEventListener('touchstart', function startVideo() {
+                                video.play().then(() => {
+                                    if (videoWrapper) videoWrapper.classList.add('playing');
+                                }).catch(e => console.log(e));
+                                document.body.removeEventListener('touchstart', startVideo);
+                            }, { once: true });
+                        }
+                    });
+                }
+                
+                // Если автовоспроизведение запустилось
+                video.addEventListener('playing', function() {
+                    if (videoWrapper) videoWrapper.classList.add('playing');
+                });
+                
+                // Клик по кнопке звука
+                if (playButton) {
+                    playButton.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        
+                        if (video.muted) {
+                            // Включаем звук
+                            video.muted = false;
+                            if (videoWrapper) videoWrapper.classList.add('sound-on');
+                            if (volumeIcon) volumeIcon.className = 'fas fa-volume-up';
+                        } else {
+                            // Выключаем звук
+                            video.muted = true;
+                            if (videoWrapper) videoWrapper.classList.remove('sound-on');
+                            if (volumeIcon) volumeIcon.className = 'fas fa-volume-mute';
+                        }
+                    });
+                }
+                
+                // Клик по видео для паузы/плей
+                if (videoWrapper) {
+                    videoWrapper.addEventListener('click', function(e) {
+                        if (playButton && e.target === playButton) return;
+                        
+                        if (video.paused) {
+                            video.play().then(() => {
+                                videoWrapper.classList.add('playing');
+                            }).catch(e => console.log(e));
+                        } else {
+                            video.pause();
+                            videoWrapper.classList.remove('playing');
+                        }
+                    });
+                    
+                    // Для мобильных - улучшенные touch события
+                    if ('ontouchstart' in window) {
+                        let touchStartY;
+                        
+                        videoWrapper.addEventListener('touchstart', function(e) {
+                            touchStartY = e.touches[0].clientY;
+                        }, { passive: true });
+                        
+                        videoWrapper.addEventListener('touchmove', function(e) {
+                            // Предотвращаем скролл страницы при взаимодействии с видео
+                            if (Math.abs(e.touches[0].clientY - touchStartY) > 10) {
+                                e.preventDefault();
+                            }
+                        }, { passive: false });
+                    }
+                    
+                    // Показываем/скрываем оверлей при наведении
+                    videoWrapper.addEventListener('mouseenter', function() {
+                        if (!video.paused) {
+                            const overlay = videoWrapper.querySelector('.video-overlay');
+                            if (overlay) overlay.style.opacity = '0.7';
+                        }
+                    });
+                    
+                    videoWrapper.addEventListener('mouseleave', function() {
+                        if (!video.paused) {
+                            const overlay = videoWrapper.querySelector('.video-overlay');
+                            if (overlay) overlay.style.opacity = '0';
+                        }
+                    });
+                }
+                
+                // Если видео не загружено
+                video.addEventListener('error', function() {
+                    console.log('Видео не найдено по пути:', video.querySelector('source')?.src);
+                    if (videoWrapper) {
+                        videoWrapper.innerHTML = `
+                            <div style="
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+                                height: 100%;
+                                color: white;
+                                text-align: center;
+                                padding: 20px;
+                                background: linear-gradient(135deg, var(--primary), #0d1938);
+                            ">
+                                <div style="font-size: 4rem; margin-bottom: 20px;">🎬</div>
+                                <h3 style="margin-bottom: 10px;">Видео загружается</h3>
+                                <p style="margin-bottom: 20px; opacity: 0.9;">
+                                    Первое видео появится здесь скоро!<br>
+                                    Пока можете посмотреть фото в нашем альбоме.
+                                </p>
+                                <a href="https://vk.com/album-147827754_305715512" target="_blank" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    color: white;
+                                    background: #4a76a8;
+                                    padding: 10px 20px;
+                                    border-radius: 5px;
+                                    text-decoration: none;
+                                    font-weight: 600;
+                                    margin-top: 10px;
+                                ">
+                                    <i class="fab fa-vk"></i> Смотреть фото в ВК
+                                </a>
+                            </div>
+                        `;
+                    }
+                });
+            }
+            
+            // Анимация появления элементов при скролле
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            if (fadeElements.length > 0) {
+                // Проверяем поддержку Intersection Observer
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                // Отписываемся после появления
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { 
+                        threshold: 0.1,
+                        rootMargin: '50px' // Загружаем немного заранее
+                    });
+                    
+                    fadeElements.forEach(el => observer.observe(el));
+                } else {
+                    // Полифилл для старых браузеров
+                    fadeElements.forEach(el => el.classList.add('visible'));
+                }
+            }
+            
+            // Функционал карты Яндекс.Карты
+            const gymTabs = document.querySelectorAll('.gym-tab');
+            const gymCards = document.querySelectorAll('.gym-card');
+            const yandexFrame = document.getElementById('yandex-map-frame');
+            
+            // Данные залов с координатами (только один зал)
+            const gymsData = {
+                'chita': [
+                    { coords: [52.037037, 113.515108], name: 'ул. Чкалова, 1', type: 'pm2rdl' }
+                ]
+            };
+            
+            // Центры городов для общего вида
+            const cityCenters = {
+                'chita': { coords: [52.037037, 113.515108], zoom: 17 }
+            };
+            
+            // Функция для обновления Яндекс.Карт
+            function updateYandexMap(selectedCity = 'all') {
+                if (!yandexFrame) return;
+                
+                let points = '';
+                let centerLat, centerLng, zoom;
+                
+                // Для одного зала показываем всегда одно и то же
+                const cityGyms = gymsData['chita'] || [];
+                points = cityGyms.map(gym => {
+                    const [lat, lng] = gym.coords;
+                    return `${lng}%2C${lat}%2C${gym.type}`; // Красная метка для зала
+                }).join('~');
+                
+                // Всегда центрируем на зале Чкалова, 1
+                centerLat = 52.037037;
+                centerLng = 113.515108;
+                zoom = 17; // Увеличенный масштаб для точного адреса
+                
+                // Обновляем iframe
+                const url = `https://yandex.ru/map-widget/v1/?ll=${centerLng}%2C${centerLat}&z=${zoom}&l=map&pt=${points}`;
+                yandexFrame.src = url;
+            }
+            
+            // Функция для показа конкретного зала на карте
+            function showGymOnMap(coords, gymName = '') {
+                if (!yandexFrame || !coords) return;
+                
+                const [lat, lng] = coords.split(',').map(Number);
+                const zoom = 18; // Еще большее увеличение для точного адреса
+                
+                // Показываем метку
+                const url = `https://yandex.ru/map-widget/v1/?ll=${lng}%2C${lat}&z=${zoom}&l=map&pt=${lng}%2C${lat}%2Cpm2rdl`;
+                yandexFrame.src = url;
+                
+                // Подсвечиваем выбранный зал
+                document.querySelectorAll('.gym-card').forEach(card => {
+                    card.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+                
+                const selectedCard = document.querySelector(`.gym-card[data-coords="${coords}"]`);
+                if (selectedCard) {
+                    selectedCard.style.boxShadow = '0 0 0 3px var(--accent)';
+                    
+                    // Прокручиваем к выбранной карточке
+                    selectedCard.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }
+            }
+            
+            // Функция для фильтрации залов (всегда показываем один зал)
+            function filterGyms(selectedCity) {
+                gymCards.forEach(card => {
+                    // Показываем всегда, так как зал один
+                    card.style.display = 'block';
+                    card.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+            }
+            
+            // Клик по вкладке
+            gymTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const cityId = this.dataset.city;
+                    
+                    // Обновляем активную вкладку
+                    gymTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Обновляем карту (всегда показываем зал Чкалова, 1)
+                    updateYandexMap('chita');
+                    
+                    // Фильтруем залы (всегда показываем один зал)
+                    filterGyms(cityId);
+                });
+            });
+            
+            // Добавляем обработчики для кнопок "На карте"
+            document.querySelectorAll('.show-on-map').forEach(button => {
+                button.addEventListener('click', function() {
+                    const coords = this.dataset.coords;
+                    const gymCard = this.closest('.gym-card');
+                    const gymName = gymCard.querySelector('h4').textContent;
+                    
+                    showGymOnMap(coords, gymName);
+                    
+                    // Активируем вкладку города
+                    const city = gymCard.dataset.city;
+                    gymTabs.forEach(tab => {
+                        tab.classList.remove('active');
+                        if(tab.dataset.city === city || tab.dataset.city === 'all') {
+                            tab.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Инициализация - показываем зал Чкалова, 1
+            updateYandexMap('chita');
+            
+            // Настраиваем управление картой
+            setupMapControls();
+            
+            // Обновляем статус зала при загрузке страницы
+            updateGymStatus();
+            
+            // Настраиваем мониторинг часового пояса
+            setupTimezoneMonitoring();
+            
+            // Обновляем статус зала каждую минуту
+            const statusInterval = setInterval(updateGymStatus, 60000); // 60000 мс = 1 минута
+            
+            // Очистка интервала при уходе со страницы (для производительности)
+            window.addEventListener('beforeunload', function() {
+                clearInterval(statusInterval);
+            });
+            
+            // Запасной вариант если Яндекс.Карты не загрузились
+            if (yandexFrame) {
+                yandexFrame.addEventListener('error', function() {
+                    console.log('Яндекс.Карты не загрузились');
+                    // Показываем статическое изображение
+                    yandexFrame.style.display = 'none';
+                    const mapFrame = document.querySelector('.map-frame');
+                    if (mapFrame) {
+                        mapFrame.innerHTML = `
+                            <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 8px;">
+                                <div style="font-size: 60px; margin-bottom: 20px; color: var(--primary);">🗺️</div>
+                                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">Зал ФМ Забайкальского края</h3>
+                                <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); max-width: 300px;">
+                                    <p style="margin-bottom: 10px; color: var(--primary); font-weight: 600;">
+                                        <i class="fas fa-map-marker-alt" style="color: var(--secondary); margin-right: 8px;"></i>
+                                        г. Чита, ул. Чкалова, 1
+                                    </p>
+                                    <p style="margin-bottom: 10px; color: var(--gray);">
+                                        <i class="fas fa-phone" style="color: var(--secondary); margin-right: 8px;"></i>
+                                        +7‒914‒485‒54‒40
+                                    </p>
+                                    <p style="margin-bottom: 10px; color: var(--gray);">
+                                        <i class="fas fa-user" style="color: var(--secondary); margin-right: 8px;"></i>
+                                        Тренер: Седов Денис
+                                    </p>
+                                    <p style="margin-bottom: 15px; color: var(--gray);">
+                                        <i class="fas fa-clock" style="color: var(--secondary); margin-right: 8px;"></i>
+                                        Ежедневно: 9:00-21:00
+                                    </p>
+                                    <div style="display: flex; gap: 10px; justify-content: center;">
+                                        <a href="tel:+79144855440" style="
+                                            display: inline-flex;
+                                            align-items: center;
+                                            gap: 5px;
+                                            background: var(--secondary);
+                                            color: white;
+                                            padding: 8px 15px;
+                                            border-radius: 5px;
+                                            text-decoration: none;
+                                            font-weight: 600;
+                                            font-size: 0.9rem;
+                                        ">
+                                            <i class="fas fa-phone"></i> Позвонить
+                                        </a>
+                                        <a href="https://yandex.ru/maps/org/funktsionalnoye_mnogoborye_zabaykalskogo_kraya/1135149003/?ll=113.515108%2C52.037037&z=17" 
+                                           target="_blank" 
+                                           style="
+                                            display: inline-flex;
+                                            align-items: center;
+                                            gap: 5px;
+                                            background: var(--primary);
+                                            color: white;
+                                            padding: 8px 15px;
+                                            border-radius: 5px;
+                                            text-decoration: none;
+                                            font-weight: 600;
+                                            font-size: 0.9rem;
+                                        ">
+                                            <i class="fas fa-external-link-alt"></i> Открыть в Яндекс.Картах
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                // Для iOS - предотвращаем фокус на iframe (может вызывать проблемы)
+                if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                    yandexFrame.style.cssText = 'pointer-events: none;';
+                }
+            }
+        });
+        
+        // Обработчик видимости страницы (для оптимизации)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Страница неактивна - можно приостановить некоторые процессы
+                console.log('Страница неактивна');
+            } else {
+                // Страница снова активна - обновляем статус
+                updateGymStatus();
+            }
+        });
+    </script>
+</body>
+</html>
