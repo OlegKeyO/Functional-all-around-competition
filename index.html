@@ -1159,6 +1159,144 @@
                 display: none; /* Скрываем легенду на очень маленьких экранах */
             }
         }
+
+        /* Галерея */
+        .gallery-wrapper {
+            margin-top: 4rem;
+        }
+
+        .gallery-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            aspect-ratio: 1 / 1; /* Квадратные ячейки */
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 3rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+            z-index: 2001;
+        }
+
+        .modal-close:hover {
+            color: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        /* Адаптивность для галереи */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1278,6 +1416,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Галерея -->
+            <div class="gallery-wrapper fade-in">
+                <h3 class="gallery-title">Фото с соревнований</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/competition1.jpg" alt="Соревнования 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/competition2.jpg" alt="Соревнования 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/competition3.jpg" alt="Соревнования 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/competition4.jpg" alt="Соревнования 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/competition5.jpg" alt="Соревнования 5" loading="lazy">
+                    </div>
+                </div>
+                <!-- Подпись, что скоро появятся альбомы (опционально) -->
+                <p class="gallery-note">Скоро мы добавим ещё альбомы с фотографиями</p>
             </div>
         </div>
     </section>
@@ -2206,6 +2368,59 @@
                 updateGymStatus();
             }
         });
+
+        // === Галерея и модальное окно ===
+        (function() {
+            // Создаём элементы модального окна (если их нет)
+            if (!document.getElementById('galleryModal')) {
+                const modalHTML = `
+                    <div id="galleryModal" class="modal">
+                        <span class="modal-close">&times;</span>
+                        <img class="modal-content" id="modalImage" src="" alt="Увеличенное фото">
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+            }
+
+            const modal = document.getElementById('galleryModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.querySelector('.modal-close');
+
+            // Открытие модалки при клике на фото галереи
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.classList.add('show');
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                    // Блокируем скролл body
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Закрытие по клику на крестик
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            // Закрытие по клику на затемнённую область
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Закрытие по клавише Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = ''; // Возвращаем скролл
+            }
+        })();
     </script>
 </body>
 </html>

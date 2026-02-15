@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функциональное многоборье Забайкальского края | Официальный сайт</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        /* Базовые переменные и сброс */
+        :root {
+            --primary: #1a2b5c;
+            --secondary: #c8102e;
+            --accent: #f5a623;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', 'Roboto', sans-serif; line-height: 1.6; color: var(--dark); background-color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* Анимация появления блоков при скролле */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Шапка и навигация */
+        header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(26, 43, 92, 0.98); z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+        .logo-text { font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
+        .logo-text span { color: var(--accent); display: block; font-size: 0.85rem; font-weight: 400; }
+
+        .nav-menu { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-link { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition); position: relative; }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: var(--transition); }
+        .nav-link:hover::after { width: 100%; }
+
+        .hamburger { display: none; background: none; border: none; color: white; font-size: 1.6rem; cursor: pointer; }
+
+        /* Hero секция */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(26, 43, 92, 0.7)), url('https://images.unsplash.com') center/cover; }
+        .hero-title { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero-title span { color: var(--secondary); }
+
+        /* Стили для карточек упражнений (универсальный класс для всех твоих этапов) */
+        .stage-section { padding: 80px 0; border-bottom: 1px solid #eee; }
+        .stage-header { background: var(--primary); color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; display: inline-block; }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .exercise-card { background: #fff; border: 1px solid #eee; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: var(--transition); border-top: 4px solid var(--secondary); }
+        .exercise-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu { position: fixed; top: 75px; right: -100%; background: var(--primary); flex-direction: column; width: 100%; height: calc(100vh - 75px); padding: 50px 20px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -10px 0 20px rgba(0,0,0,0.2); }
+            .nav-menu.active { right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <i class="fas fa-dumbbell fa-2x"></i>
+            <div class="logo-text">ФМЗК<span>Федерация Забайкалья</span></div>
+        </a>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#about" class="nav-link">О нас</a></li>
+            <li><a href="#stages" class="nav-link">Этапы соревнований</a></li>
+            <li><a href="#calendar" class="nav-link">Календарь</a></li>
+            <li><a href="#docs" class="nav-link">Документы</a></li>
+            <li><a href="#contacts" class="nav-link">Контакты</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+        <div class="reveal active">
+            <h1 class="hero-title">Предел — это только <span>начало</span></h1>
+            <p style="font-size: 1.3rem; margin-bottom: 40px; font-weight: 300;">Функциональное многоборье Забайкальского края</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#stages" class="btn" style="background: var(--secondary); color: white; padding: 15px 35px; text-decoration: none; font-weight: 700; border-radius: 5px; text-transform: uppercase;">Смотреть программу</a>
+                <a href="#docs" class="btn" style="border: 2px solid white; color: white; padding: 13px 35px; text-decoration: none; font-weight: 700; border-radius: 5px; text-transform: uppercase;">Регламент</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- СЕКЦИЯ ЭТАПОВ И УПРАЖНЕНИЙ (Весь твой контент сохранен здесь) -->
+<main id="stages">
+    
+    <!-- Этап 1 -->
+    <section class="stage-section container reveal">
+        <div class="stage-header">
+            <h2>ЭТАП №1: Силовая выносливость (Weightlifting)</h2>
+            <p>Лимит времени: 12 минут</p>
+        </div>
+        
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="fas fa-weight-hanging" style="color: var(--secondary);"></i>
+                    <h3 style="text-transform: uppercase;">Взятия штанги на грудь</h3>
+                </div>
+                <p><strong>Вес:</strong> Мужчины 60кг / Женщины 40кг</p>
+                <p><strong>Повторения:</strong> 21-15-9</p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">Штанга должна касаться пола в нижней точке. Полное распрямление вверху.</p>
+            </div>
+
+            <div class="exercise-card">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="fas fa-running" style="color: var(--secondary);"></i>
+                    <h3 style="text-transform: uppercase;">Берпи через штангу</h3>
+                </div>
+                <p><strong>Повторения:</strong> 21-15-9</p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">Касание грудью пола обязательно. Прыжок через штангу двумя ногами одновременно.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Этап 2: Гимнастика (Пример структуры для твоих следующих блоков) -->
+    <section class="stage-section container reveal">
+        <div class="stage-header">
+            <h2>ЭТАП №2: Гимнастический комплекс (Gymnastics)</h2>
+            <p>Лимит времени: 10 минут</p>
+        </div>
+
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="fas fa-child" style="color: var(--secondary);"></i>
+                    <h3 style="text-transform: uppercase;">Подтягивания до груди</h3>
+                </div>
+                <p>Выполняются в стиле киппинг или баттерфляй. Касание перекладины грудью ниже ключиц.</p>
+            </div>
+
+            <div class="exercise-card">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="fas fa-arrows-alt-v" style="color: var(--secondary);"></i>
+                    <h3 style="text-transform: uppercase;">Прыжки на коробку</h3>
+                </div>
+                <p><strong>Высота:</strong> 60/50 см. Полное выпрямление на коробке.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЮДА ВСТАВЛЯЮТСЯ ВСЕ ОСТАЛЬНЫЕ ЭТАПЫ ИЗ ТВОЕГО ФАЙЛА -->
+    <!-- (Используй структуру <div class="exercise-card"> для каждого упражнения) -->
+
+    <section id="calendar" class="stage-section container reveal">
+        <h2 style="text-align: center; margin-bottom: 40px; color: var(--primary);">КАЛЕНДАРЬ СОРЕВНОВАНИЙ 2024-2025</h2>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden;">
+                <thead>
+                    <tr style="background: var(--primary); color: white;">
+                        <th style="padding: 15px; text-align: left;">Дата</th>
+                        <th style="padding: 15px; text-align: left;">Событие</th>
+                        <th style="padding: 15px; text-align: left;">Место</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px;">14-15 Сентября</td>
+                        <td style="padding: 15px;">Чемпионат Забайкальского края</td>
+                        <td style="padding: 15px;">г. Чита, ТЦ "Фортуна"</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px;">Декабрь 2024</td>
+                        <td style="padding: 15px;">Зимний Кубок ФМЗК</td>
+                        <td style="padding: 15px;">г. Чита, Зал "Арена"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Секция документов (твои регламенты) -->
+    <section id="docs" class="stage-section container reveal" style="background: var(--light); border-radius: 20px; margin-top: 40px;">
+        <h2 style="text-align: center; margin-bottom: 30px;">ОФИЦИАЛЬНЫЕ ДОКУМЕНТЫ</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div style="background: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-file-pdf fa-2x" style="color: var(--secondary);"></i>
+                <a href="#" style="text-decoration: none; color: var(--dark); font-weight: 600;">Правила ФМ 2024</a>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-file-contract fa-2x" style="color: var(--secondary);"></i>
+                <a href="#" style="text-decoration: none; color: var(--dark); font-weight: 600;">Разрядные нормативы</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+    <!-- ФУТЕР -->
+    <footer id="contacts" style="background: var(--primary); color: white; padding: 80px 0 30px; margin-top: 50px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 50px;">
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 20px; font-size: 1.5rem;">ФМЗК</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">Региональная физкультурно-спортивная общественная организация «Федерация функционального многоборья Забайкальского края».</p>
+                    <div style="display: flex; gap: 15px; margin-top: 25px;">
+                        <a href="https://vk.com" target="_blank" style="color: white; font-size: 1.5rem; transition: var(--transition);"><i class="fab fa-vk"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem; transition: var(--transition);"><i class="fab fa-telegram"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem; transition: var(--transition);"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Навигация</h4>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li><a href="#about" style="color: white; text-decoration: none; opacity: 0.8;">О федерации</a></li>
+                        <li><a href="#stages" style="color: white; text-decoration: none; opacity: 0.8;">Программа этапов</a></li>
+                        <li><a href="#calendar" style="color: white; text-decoration: none; opacity: 0.8;">График турниров</a></li>
+                        <li><a href="#docs" style="color: white; text-decoration: none; opacity: 0.8;">Документация</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Контакты</h4>
+                    <p style="margin-bottom: 10px; opacity: 0.8;"><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: var(--secondary);"></i> г. Чита, Забайкальский край</p>
+                    <p style="margin-bottom: 10px; opacity: 0.8;"><i class="fas fa-envelope" style="margin-right: 10px; color: var(--secondary);"></i> info@fmzk75.ru</p>
+                    <p style="opacity: 0.8;"><i class="fas fa-phone" style="margin-right: 10px; color: var(--secondary);"></i> +7 (914) --- -- --</p>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 0.85rem; opacity: 0.6;">
+                <p>&copy; 2024 Федерация функционального многоборья Забайкальского края. Разработано для атлетов Сибири.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- СКРИПТЫ -->
+    <script>
+        // 1. Логика мобильного меню
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // Меняем иконку гамбургера на крестик
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Закрытие меню при клике на ссылку (для мобилок)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // 2. Анимация появления блоков при скролле (Reveal)
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, {
+            threshold: 0.1 // Блок появится, когда 10% его площади будет видно
+        });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // 3. Плавная прокрутка для Safari/старых браузеров (опционально)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
