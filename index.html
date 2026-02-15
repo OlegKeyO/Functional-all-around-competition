@@ -14,9 +14,9 @@
         }
 
         :root {
-            --primary: #1a2b5c; /* Темно-синий - основной цвет */
-            --secondary: #c8102e; /* Красный - акцентный цвет */
-            --accent: #f5a623; /* Оранжевый - второй акцент */
+            --primary: #1a2b5c;
+            --secondary: #c8102e;
+            --accent: #f5a623;
             --light: #f8f9fa;
             --dark: #121212;
             --gray: #6c757d;
@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* Анимация появления */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -618,7 +617,6 @@
             align-items: start;
         }
 
-        /* Контейнер для карты с красивой рамкой */
         .map-container {
             position: relative;
             background: white;
@@ -1156,38 +1154,51 @@
             }
             
             .map-legend {
-                display: none; /* Скрываем легенду на очень маленьких экранах */
+                display: none;
             }
         }
 
-        /* Галерея */
-        .gallery-wrapper {
-            margin-top: 4rem;
+        /* ===== НОВЫЕ СТИЛИ ДЛЯ ГАЛЕРЕИ С АЛЬБОМАМИ ===== */
+        .albums-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
         }
 
-        .gallery-title {
-            font-size: 2rem;
+        .album-tab {
+            padding: 0.8rem 2rem;
+            background: #eee;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
             color: var(--primary);
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .gallery-title::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 3px;
-            background-color: var(--secondary);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+        .album-tab:hover {
+            background: #ddd;
+            transform: translateY(-2px);
+        }
+
+        .album-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(26, 43, 92, 0.3);
         }
 
         .gallery-grid {
-            display: grid;
+            display: none; /* Скрыты по умолчанию */
             grid-template-columns: repeat(5, 1fr);
             gap: 1.5rem;
+        }
+
+        .gallery-grid.active-album {
+            display: grid; /* Показываем только активный */
         }
 
         .gallery-item {
@@ -1196,7 +1207,7 @@
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
-            aspect-ratio: 1 / 1; /* Квадратные ячейки */
+            aspect-ratio: 1 / 1;
             cursor: pointer;
         }
 
@@ -1279,24 +1290,29 @@
 
         /* Адаптивность для галереи */
         @media (max-width: 992px) {
-            .gallery-grid {
+            .gallery-grid.active-album {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
             }
         }
 
         @media (max-width: 576px) {
-            .gallery-grid {
+            .gallery-grid.active-album {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.8rem;
+            }
+            .album-tab {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 400px) {
-            .gallery-grid {
+            .gallery-grid.active-album {
                 grid-template-columns: 1fr;
             }
         }
+        /* ===== КОНЕЦ НОВЫХ СТИЛЕЙ ===== */
     </style>
 </head>
 <body>
@@ -1335,7 +1351,6 @@
         <div class="hero-overlay"></div>
         <video autoplay muted loop class="hero-video" id="heroVideo">
             <source src="video/hero.mp4" type="video/mp4">
-            <!-- Запасное изображение если видео не загрузится -->
         </video>
         
         <div class="hero-content">
@@ -1418,29 +1433,78 @@
                 </div>
             </div>
 
-            <!-- Галерея -->
+            <!-- ===== НОВАЯ ГАЛЕРЕЯ С ТРЕМЯ АЛЬБОМАМИ ===== -->
             <div class="gallery-wrapper fade-in">
-                <h3 class="gallery-title">Фото с соревнований</h3>
-                <div class="gallery-grid">
+                <h3 class="gallery-title">Фото с соревнований и тренировок</h3>
+
+                <!-- Вкладки альбомов -->
+                <div class="albums-tabs">
+                    <button class="album-tab active" data-album="competitions1">Соревнования 2025</button>
+                    <button class="album-tab" data-album="competitions2">Соревнования 2024</button>
+                    <button class="album-tab" data-album="workouts">Тренировки</button>
+                </div>
+
+                <!-- Альбом "Соревнования 2025" (competitions1) -->
+                <div id="gallery-competitions1" class="gallery-grid active-album">
                     <div class="gallery-item">
-                        <img src="images/competition1.jpg" alt="Соревнования 1" loading="lazy">
+                        <img src="images/albums/competitions1/competition1.jpg" alt="Соревнования 2025 - фото 1" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="images/competition2.jpg" alt="Соревнования 2" loading="lazy">
+                        <img src="images/albums/competitions1/competition2.jpg" alt="Соревнования 2025 - фото 2" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="images/competition3.jpg" alt="Соревнования 3" loading="lazy">
+                        <img src="images/albums/competitions1/competition3.jpg" alt="Соревнования 2025 - фото 3" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="images/competition4.jpg" alt="Соревнования 4" loading="lazy">
+                        <img src="images/albums/competitions1/competition4.jpg" alt="Соревнования 2025 - фото 4" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="images/competition5.jpg" alt="Соревнования 5" loading="lazy">
+                        <img src="images/albums/competitions1/competition5.jpg" alt="Соревнования 2025 - фото 5" loading="lazy">
                     </div>
                 </div>
-                <!-- Подпись, что скоро появятся альбомы (опционально) -->
-                <p class="gallery-note">Скоро мы добавим ещё альбомы с фотографиями</p>
+
+                <!-- Альбом "Соревнования 2024" (competitions2) -->
+                <div id="gallery-competitions2" class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/albums/competitions2/competition1.jpg" alt="Соревнования 2024 - фото 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/competitions2/competition2.jpg" alt="Соревнования 2024 - фото 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/competitions2/competition3.jpg" alt="Соревнования 2024 - фото 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/competitions2/competition4.jpg" alt="Соревнования 2024 - фото 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/competitions2/competition5.jpg" alt="Соревнования 2024 - фото 5" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Альбом "Тренировки" (workouts) -->
+                <div id="gallery-workouts" class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/albums/workouts/workout1.jpg" alt="Тренировки - фото 1" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/workouts/workout2.jpg" alt="Тренировки - фото 2" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/workouts/workout3.jpg" alt="Тренировки - фото 3" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/workouts/workout4.jpg" alt="Тренировки - фото 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/albums/workouts/workout5.jpg" alt="Тренировки - фото 5" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Подпись (опционально) -->
+                <p class="gallery-note">Скоро добавим ещё альбомы с фотографиями</p>
             </div>
+            <!-- ===== КОНЕЦ НОВОЙ ГАЛЕРЕИ ===== -->
         </div>
     </section>
 
@@ -1482,15 +1546,12 @@
             
             <div class="gyms-container">
                 <div class="gyms-map">
-                    <!-- Контейнер карты с красивой рамкой -->
                     <div class="map-container">
-                        <!-- Заголовок карты -->
                         <div class="map-header">
                             <i class="fas fa-map-marked-alt"></i>
                             <span>Карта залов функционального многоборья</span>
                         </div>
                         
-                        <!-- Декоративные уголки -->
                         <div class="map-decoration">
                             <div class="map-corner map-corner-tl"></div>
                             <div class="map-corner map-corner-tr"></div>
@@ -1498,7 +1559,6 @@
                             <div class="map-corner map-corner-br"></div>
                         </div>
                         
-                        <!-- Яндекс.Карты через Iframe -->
                         <div class="map-frame">
                             <iframe 
                                 id="yandex-map-frame"
@@ -1513,7 +1573,6 @@
                             </iframe>
                         </div>
                         
-                        <!-- Контролы карты -->
                         <div class="map-controls">
                             <button class="map-btn" id="zoomInBtn">
                                 <i class="fas fa-search-plus"></i> Приблизить
@@ -1537,7 +1596,6 @@
                     </div>
                     
                     <div class="gyms-cards">
-                        <!-- Карточка зала в Чите -->
                         <div class="gym-card" data-city="chita" data-coords="52.037037,113.515108">
                             <div class="gym-card-header">
                                 <h4>ФМ Забайкальского края</h4>
@@ -1681,13 +1739,12 @@
             });
         }
         
-        // Закрытие меню при клике на ссылку
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
             if (navMenu) navMenu.classList.remove('active');
             if (hamburger) hamburger.innerHTML = '<i class="fas fa-bars"></i>';
         }));
         
-        // Плавная прокрутка (полифилл для Safari)
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -1697,14 +1754,12 @@
                 if(targetElement) {
                     e.preventDefault();
                     
-                    // Проверяем поддержку smooth scroll
                     if ('scrollBehavior' in document.documentElement.style) {
                         window.scrollTo({
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     } else {
-                        // Полифилл для старых браузеров
                         const startPosition = window.pageYOffset;
                         const targetPosition = targetElement.offsetTop - 80;
                         const distance = targetPosition - startPosition;
@@ -1715,8 +1770,6 @@
                             if (!start) start = timestamp;
                             const progress = timestamp - start;
                             const percentage = Math.min(progress / duration, 1);
-                            
-                            // Эффект easing
                             const easeInOutCubic = t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
                             
                             window.scrollTo(0, startPosition + (distance * easeInOutCubic(percentage)));
@@ -1732,11 +1785,10 @@
             });
         });
         
-        // Видео фон для героя (запасной вариант)
+        // Видео фон для героя
         const heroVideo = document.getElementById('heroVideo');
         if (heroVideo) {
             heroVideo.addEventListener('error', function() {
-                // Если видео не загрузилось, ставим фоновое изображение
                 const heroSection = document.querySelector('.hero');
                 if (heroSection) {
                     heroSection.style.backgroundImage = 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80")';
@@ -1744,7 +1796,6 @@
                 }
             });
             
-            // Для iOS - добавляем атрибуты для корректной работы
             heroVideo.setAttribute('playsinline', '');
             heroVideo.setAttribute('webkit-playsinline', '');
         }
@@ -1755,7 +1806,6 @@
             const header = document.querySelector('header');
             if (!header) return;
             
-            // Дебаунсинг для производительности на мобильных
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(function() {
                 if (window.scrollY > 100) {
@@ -1766,9 +1816,8 @@
                     header.style.padding = '1rem 0';
                 }
             }, 10);
-        }, { passive: true }); // Улучшение производительности на мобильных
+        }, { passive: true });
 
-        // Функция для проверки, открыт ли зал в текущее время
         function checkGymStatus(openTime, closeTime) {
             try {
                 const now = new Date();
@@ -1776,7 +1825,6 @@
                 const currentMinute = now.getMinutes();
                 const currentTime = currentHour * 60 + currentMinute;
                 
-                // Парсим время открытия и закрытия
                 const openParts = openTime.split(':');
                 const closeParts = closeTime.split(':');
                 
@@ -1785,7 +1833,6 @@
                 const closeHour = parseInt(closeParts[0], 10);
                 const closeMinute = parseInt(closeParts[1] || '0', 10);
                 
-                // Валидация времени
                 if (isNaN(openHour) || isNaN(openMinute) || isNaN(closeHour) || isNaN(closeMinute)) {
                     console.error('Некорректный формат времени:', openTime, closeTime);
                     return false;
@@ -1794,12 +1841,9 @@
                 const openTimeMinutes = openHour * 60 + openMinute;
                 const closeTimeMinutes = closeHour * 60 + closeMinute;
                 
-                // Если зал работает после полуночи (например, до 1:00)
                 if (closeTimeMinutes < openTimeMinutes) {
-                    // Зал открыт, если текущее время после открытия ИЛИ до закрытия (на следующий день)
                     return currentTime >= openTimeMinutes || currentTime <= closeTimeMinutes;
                 } else {
-                    // Обычный рабочий день
                     return currentTime >= openTimeMinutes && currentTime <= closeTimeMinutes;
                 }
             } catch (error) {
@@ -1808,7 +1852,6 @@
             }
         }
         
-        // Функция для обновления статуса зала
         function updateGymStatus() {
             try {
                 const gymCard = document.querySelector('.gym-card');
@@ -1820,13 +1863,11 @@
                 if (!statusElement || !timeElement) return;
                 
                 const timeText = timeElement.textContent;
-                
-                // Извлекаем время работы из текста "Ежедневно: 9:00-21:00"
                 const timeMatch = timeText.match(/(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})/);
                 
                 if (timeMatch) {
-                    const openTime = `${timeMatch[1]}:${timeMatch[2]}`; // 9:00
-                    const closeTime = `${timeMatch[3]}:${timeMatch[4]}`; // 21:00
+                    const openTime = `${timeMatch[1]}:${timeMatch[2]}`;
+                    const closeTime = `${timeMatch[3]}:${timeMatch[4]}`;
                     
                     const isOpen = checkGymStatus(openTime, closeTime);
                     
@@ -1838,10 +1879,7 @@
                         statusElement.className = 'gym-status closed';
                     }
                     
-                    // Добавляем время работы в текст статуса
                     statusElement.setAttribute('title', `Часы работы: ${openTime}-${closeTime}`);
-                    
-                    // Для мобильных - добавляем data-атрибут
                     statusElement.setAttribute('data-hours', `${openTime}-${closeTime}`);
                 }
             } catch (error) {
@@ -1849,12 +1887,9 @@
             }
         }
         
-        // Функция для обновления статуса при смене часового пояса или переходе на летнее время
         function setupTimezoneMonitoring() {
-            // Сохраняем текущее смещение часового пояса
             let lastTimezoneOffset = new Date().getTimezoneOffset();
             
-            // Проверяем изменение часового пояса каждые 5 минут
             setInterval(() => {
                 const currentOffset = new Date().getTimezoneOffset();
                 if (currentOffset !== lastTimezoneOffset) {
@@ -1862,10 +1897,9 @@
                     updateGymStatus();
                     console.log('Часовой пояс изменен, обновляем статус');
                 }
-            }, 300000); // 5 минут
+            }, 300000);
         }
         
-        // Функция для управления картой
         function setupMapControls() {
             const yandexFrame = document.getElementById('yandex-map-frame');
             const zoomInBtn = document.getElementById('zoomInBtn');
@@ -1874,22 +1908,19 @@
             
             if (!yandexFrame) return;
             
-            let currentZoom = 17; // Начальный zoom
+            let currentZoom = 17;
             
-            // Функция для обновления карты с новым zoom
             function updateMapZoom() {
                 const url = `https://yandex.ru/map-widget/v1/?ll=113.515108%2C52.037037&z=${currentZoom}&l=map&pt=113.515108%2C52.037037%2Cpm2rdl`;
                 yandexFrame.src = url;
             }
             
-            // Приближение
             if (zoomInBtn) {
                 zoomInBtn.addEventListener('click', function() {
                     if (currentZoom < 20) {
                         currentZoom++;
                         updateMapZoom();
                         
-                        // Анимация кнопки
                         this.style.transform = 'scale(0.95)';
                         setTimeout(() => {
                             this.style.transform = 'scale(1)';
@@ -1898,14 +1929,12 @@
                 });
             }
             
-            // Отдаление
             if (zoomOutBtn) {
                 zoomOutBtn.addEventListener('click', function() {
                     if (currentZoom > 10) {
                         currentZoom--;
                         updateMapZoom();
                         
-                        // Анимация кнопки
                         this.style.transform = 'scale(0.95)';
                         setTimeout(() => {
                             this.style.transform = 'scale(1)';
@@ -1914,7 +1943,6 @@
                 });
             }
             
-            // Определение местоположения
             if (locateBtn) {
                 locateBtn.addEventListener('click', function() {
                     if ("geolocation" in navigator) {
@@ -1922,11 +1950,9 @@
                             const lat = position.coords.latitude;
                             const lng = position.coords.longitude;
                             
-                            // Показать местоположение пользователя
                             const url = `https://yandex.ru/map-widget/v1/?ll=${lng}%2C${lat}&z=15&l=map&pt=${lng}%2C${lat}%2Cpm2blm~113.515108%2C52.037037%2Cpm2rdl`;
                             yandexFrame.src = url;
                             
-                            // Анимация успеха
                             locateBtn.innerHTML = '<i class="fas fa-check"></i> Местоположение найдено';
                             locateBtn.style.background = '#d4edda';
                             locateBtn.style.color = '#155724';
@@ -1939,7 +1965,6 @@
                         }, function(error) {
                             console.log("Ошибка получения местоположения:", error);
                             
-                            // Анимация ошибки
                             locateBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Доступ запрещен';
                             locateBtn.style.background = '#f8d7da';
                             locateBtn.style.color = '#721c24';
@@ -1955,7 +1980,6 @@
                             maximumAge: 0
                         });
                     } else {
-                        // Браузер не поддерживает геолокацию
                         locateBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Не поддерживается';
                         locateBtn.style.background = '#fff3cd';
                         locateBtn.style.color = '#856404';
@@ -1970,7 +1994,6 @@
             }
         }
         
-        // Автовоспроизведение видео в секции "Что такое ФМ?"
         document.addEventListener('DOMContentLoaded', function() {
             const videoWrapper = document.querySelector('.video-wrapper');
             const video = document.querySelector('.video-wrapper video');
@@ -1978,27 +2001,22 @@
             const volumeIcon = document.getElementById('volumeIcon');
             
             if (video) {
-                // Настройки для автовоспроизведения (особенно для iOS)
                 video.muted = true;
                 video.loop = true;
                 video.playsInline = true;
                 video.setAttribute('webkit-playsinline', '');
                 video.setAttribute('playsinline', '');
                 
-                // Для iOS - предзагрузка
                 video.load();
                 
-                // Пытаемся запустить автовоспроизведение
                 const playPromise = video.play();
                 
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
                         console.log("Автовоспроизведение заблокировано:", error);
-                        // Показываем кнопку play
                         if (videoWrapper) videoWrapper.classList.remove('playing');
                         if (volumeIcon) volumeIcon.className = 'fas fa-play';
                         
-                        // Для мобильных - добавляем обработчик жеста
                         if ('ontouchstart' in window) {
                             document.body.addEventListener('touchstart', function startVideo() {
                                 video.play().then(() => {
@@ -2010,23 +2028,19 @@
                     });
                 }
                 
-                // Если автовоспроизведение запустилось
                 video.addEventListener('playing', function() {
                     if (videoWrapper) videoWrapper.classList.add('playing');
                 });
                 
-                // Клик по кнопке звука
                 if (playButton) {
                     playButton.addEventListener('click', function(e) {
                         e.stopPropagation();
                         
                         if (video.muted) {
-                            // Включаем звук
                             video.muted = false;
                             if (videoWrapper) videoWrapper.classList.add('sound-on');
                             if (volumeIcon) volumeIcon.className = 'fas fa-volume-up';
                         } else {
-                            // Выключаем звук
                             video.muted = true;
                             if (videoWrapper) videoWrapper.classList.remove('sound-on');
                             if (volumeIcon) volumeIcon.className = 'fas fa-volume-mute';
@@ -2034,7 +2048,6 @@
                     });
                 }
                 
-                // Клик по видео для паузы/плей
                 if (videoWrapper) {
                     videoWrapper.addEventListener('click', function(e) {
                         if (playButton && e.target === playButton) return;
@@ -2049,7 +2062,6 @@
                         }
                     });
                     
-                    // Для мобильных - улучшенные touch события
                     if ('ontouchstart' in window) {
                         let touchStartY;
                         
@@ -2058,14 +2070,12 @@
                         }, { passive: true });
                         
                         videoWrapper.addEventListener('touchmove', function(e) {
-                            // Предотвращаем скролл страницы при взаимодействии с видео
                             if (Math.abs(e.touches[0].clientY - touchStartY) > 10) {
                                 e.preventDefault();
                             }
                         }, { passive: false });
                     }
                     
-                    // Показываем/скрываем оверлей при наведении
                     videoWrapper.addEventListener('mouseenter', function() {
                         if (!video.paused) {
                             const overlay = videoWrapper.querySelector('.video-overlay');
@@ -2081,7 +2091,6 @@
                     });
                 }
                 
-                // Если видео не загружено
                 video.addEventListener('error', function() {
                     console.log('Видео не найдено по пути:', video.querySelector('source')?.src);
                     if (videoWrapper) {
@@ -2123,85 +2132,69 @@
                 });
             }
             
-            // Анимация появления элементов при скролле
+            // Анимация появления при скролле
             const fadeElements = document.querySelectorAll('.fade-in');
             
             if (fadeElements.length > 0) {
-                // Проверяем поддержку Intersection Observer
                 if ('IntersectionObserver' in window) {
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
                                 entry.target.classList.add('visible');
-                                // Отписываемся после появления
                                 observer.unobserve(entry.target);
                             }
                         });
                     }, { 
                         threshold: 0.1,
-                        rootMargin: '50px' // Загружаем немного заранее
+                        rootMargin: '50px'
                     });
                     
                     fadeElements.forEach(el => observer.observe(el));
                 } else {
-                    // Полифилл для старых браузеров
                     fadeElements.forEach(el => el.classList.add('visible'));
                 }
             }
             
-            // Функционал карты Яндекс.Карты
+            // Функционал карты Яндекс.Карты (без изменений)
             const gymTabs = document.querySelectorAll('.gym-tab');
             const gymCards = document.querySelectorAll('.gym-card');
             const yandexFrame = document.getElementById('yandex-map-frame');
             
-            // Данные залов с координатами (только один зал)
             const gymsData = {
                 'chita': [
                     { coords: [52.037037, 113.515108], name: 'ул. Чкалова, 1', type: 'pm2rdl' }
                 ]
             };
             
-            // Центры городов для общего вида
-            const cityCenters = {
-                'chita': { coords: [52.037037, 113.515108], zoom: 17 }
-            };
-            
-            // Функция для обновления Яндекс.Карт
             function updateYandexMap(selectedCity = 'all') {
                 if (!yandexFrame) return;
                 
                 let points = '';
                 let centerLat, centerLng, zoom;
                 
-                // Для одного зала показываем всегда одно и то же
                 const cityGyms = gymsData['chita'] || [];
                 points = cityGyms.map(gym => {
                     const [lat, lng] = gym.coords;
-                    return `${lng}%2C${lat}%2C${gym.type}`; // Красная метка для зала
+                    return `${lng}%2C${lat}%2C${gym.type}`;
                 }).join('~');
                 
-                // Всегда центрируем на зале Чкалова, 1
                 centerLat = 52.037037;
                 centerLng = 113.515108;
-                zoom = 17; // Увеличенный масштаб для точного адреса
+                zoom = 17;
                 
-                // Обновляем iframe
                 const url = `https://yandex.ru/map-widget/v1/?ll=${centerLng}%2C${centerLat}&z=${zoom}&l=map&pt=${points}`;
                 yandexFrame.src = url;
             }
             
-            // Функция для показа конкретного зала на карте
             function showGymOnMap(coords, gymName = '') {
                 if (!yandexFrame || !coords) return;
                 
                 const [lat, lng] = coords.split(',').map(Number);
-                const zoom = 18; // Еще большее увеличение для точного адреса
+                const zoom = 18;
                 
-                // Показываем метку
                 const url = `https://yandex.ru/map-widget/v1/?ll=${lng}%2C${lat}&z=${zoom}&l=map&pt=${lng}%2C${lat}%2Cpm2rdl`;
                 yandexFrame.src = url;
                 
-                // Подсвечиваем выбранный зал
                 document.querySelectorAll('.gym-card').forEach(card => {
                     card.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
                 });
@@ -2209,8 +2202,6 @@
                 const selectedCard = document.querySelector(`.gym-card[data-coords="${coords}"]`);
                 if (selectedCard) {
                     selectedCard.style.boxShadow = '0 0 0 3px var(--accent)';
-                    
-                    // Прокручиваем к выбранной карточке
                     selectedCard.scrollIntoView({ 
                         behavior: 'smooth', 
                         block: 'nearest' 
@@ -2218,33 +2209,25 @@
                 }
             }
             
-            // Функция для фильтрации залов (всегда показываем один зал)
             function filterGyms(selectedCity) {
                 gymCards.forEach(card => {
-                    // Показываем всегда, так как зал один
                     card.style.display = 'block';
                     card.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
                 });
             }
             
-            // Клик по вкладке
             gymTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const cityId = this.dataset.city;
                     
-                    // Обновляем активную вкладку
                     gymTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Обновляем карту (всегда показываем зал Чкалова, 1)
                     updateYandexMap('chita');
-                    
-                    // Фильтруем залы (всегда показываем один зал)
                     filterGyms(cityId);
                 });
             });
             
-            // Добавляем обработчики для кнопок "На карте"
             document.querySelectorAll('.show-on-map').forEach(button => {
                 button.addEventListener('click', function() {
                     const coords = this.dataset.coords;
@@ -2253,7 +2236,6 @@
                     
                     showGymOnMap(coords, gymName);
                     
-                    // Активируем вкладку города
                     const city = gymCard.dataset.city;
                     gymTabs.forEach(tab => {
                         tab.classList.remove('active');
@@ -2264,31 +2246,20 @@
                 });
             });
             
-            // Инициализация - показываем зал Чкалова, 1
             updateYandexMap('chita');
-            
-            // Настраиваем управление картой
             setupMapControls();
-            
-            // Обновляем статус зала при загрузке страницы
             updateGymStatus();
-            
-            // Настраиваем мониторинг часового пояса
             setupTimezoneMonitoring();
             
-            // Обновляем статус зала каждую минуту
-            const statusInterval = setInterval(updateGymStatus, 60000); // 60000 мс = 1 минута
+            const statusInterval = setInterval(updateGymStatus, 60000);
             
-            // Очистка интервала при уходе со страницы (для производительности)
             window.addEventListener('beforeunload', function() {
                 clearInterval(statusInterval);
             });
             
-            // Запасной вариант если Яндекс.Карты не загрузились
             if (yandexFrame) {
                 yandexFrame.addEventListener('error', function() {
                     console.log('Яндекс.Карты не загрузились');
-                    // Показываем статическое изображение
                     yandexFrame.style.display = 'none';
                     const mapFrame = document.querySelector('.map-frame');
                     if (mapFrame) {
@@ -2351,27 +2322,43 @@
                     }
                 });
                 
-                // Для iOS - предотвращаем фокус на iframe (может вызывать проблемы)
                 if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
                     yandexFrame.style.cssText = 'pointer-events: none;';
                 }
             }
+
+            // ===== НОВЫЙ КОД ДЛЯ ПЕРЕКЛЮЧЕНИЯ АЛЬБОМОВ =====
+            const albumTabs = document.querySelectorAll('.album-tab');
+            const albums = document.querySelectorAll('.gallery-grid');
+
+            albumTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const albumId = this.dataset.album;
+
+                    // Обновляем активную вкладку
+                    albumTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Показываем нужный альбом
+                    albums.forEach(album => {
+                        album.classList.remove('active-album');
+                        if (album.id === `gallery-${albumId}`) {
+                            album.classList.add('active-album');
+                        }
+                    });
+                });
+            });
+            // ===== КОНЕЦ НОВОГО КОДА =====
         });
         
-        // Обработчик видимости страницы (для оптимизации)
         document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                // Страница неактивна - можно приостановить некоторые процессы
-                console.log('Страница неактивна');
-            } else {
-                // Страница снова активна - обновляем статус
+            if (!document.hidden) {
                 updateGymStatus();
             }
         });
 
-        // === Галерея и модальное окно ===
+        // === Галерея и модальное окно (работает для всех фото) ===
         (function() {
-            // Создаём элементы модального окна (если их нет)
             if (!document.getElementById('galleryModal')) {
                 const modalHTML = `
                     <div id="galleryModal" class="modal">
@@ -2386,30 +2373,25 @@
             const modalImg = document.getElementById('modalImage');
             const closeBtn = document.querySelector('.modal-close');
 
-            // Открытие модалки при клике на фото галереи
             document.querySelectorAll('.gallery-item img').forEach(img => {
                 img.addEventListener('click', function() {
                     modal.classList.add('show');
                     modalImg.src = this.src;
                     modalImg.alt = this.alt;
-                    // Блокируем скролл body
                     document.body.style.overflow = 'hidden';
                 });
             });
 
-            // Закрытие по клику на крестик
             if (closeBtn) {
                 closeBtn.addEventListener('click', closeModal);
             }
 
-            // Закрытие по клику на затемнённую область
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeModal();
                 }
             });
 
-            // Закрытие по клавише Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modal.classList.contains('show')) {
                     closeModal();
@@ -2418,7 +2400,7 @@
 
             function closeModal() {
                 modal.classList.remove('show');
-                document.body.style.overflow = ''; // Возвращаем скролл
+                document.body.style.overflow = '';
             }
         })();
     </script>
