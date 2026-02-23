@@ -1226,7 +1226,7 @@
             right: -30px;
         }
 
-        /* Табы */
+        /* Табы — изменено: border-radius теперь 4px, как у кнопок в Hero */
         .albums-tabs {
             display: flex;
             justify-content: center;
@@ -1238,7 +1238,7 @@
         .album-tab {
             background: #2a2a3a;
             border: 2px solid var(--primary);
-            border-radius: 40px;
+            border-radius: 4px;  /* изменено с 40px на 4px */
             padding: 0.8rem 2rem;
             font-weight: 700;
             color: #fff;
@@ -1383,7 +1383,7 @@
             transform: scale(1);
         }
 
-        /* Счётчик фото (опционально) */
+        /* Счётчик фото */
         .album-stats {
             text-align: center;
             margin: 2rem 0 1rem;
@@ -2373,7 +2373,7 @@
                 }
             }
             
-            // Функционал карты Яндекс.Карты (без изменений)
+            // Функционал карты Яндекс.Карты
             const gymTabs = document.querySelectorAll('.gym-tab');
             const gymCards = document.querySelectorAll('.gym-card');
             const yandexFrame = document.getElementById('yandex-map-frame');
@@ -2581,7 +2581,7 @@
             }
         });
 
-        // Модальное окно для галереи
+        // Модальное окно для галереи (исправлено: обработчик на .gallery-item)
         (function() {
             if (!document.getElementById('galleryModal')) {
                 const modalHTML = `
@@ -2597,35 +2597,39 @@
             const modalImg = document.getElementById('modalImage');
             const closeBtn = document.querySelector('.modal-close');
 
-            document.querySelectorAll('.gallery-item img').forEach(img => {
-                img.addEventListener('click', function() {
-                    modal.classList.add('show');
-                    modalImg.src = this.src;
-                    modalImg.alt = this.alt;
-                    document.body.style.overflow = 'hidden';
+            // Исправлено: обработчик на весь блок .gallery-item, а не только на img
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        modal.classList.add('show');
+                        modalImg.src = img.src;
+                        modalImg.alt = img.alt;
+                        document.body.style.overflow = 'hidden';
+                    }
                 });
             });
 
             if (closeBtn) {
-                closeBtn.addEventListener('click', closeModal);
+                closeBtn.addEventListener('click', function() {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
             }
 
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
-                    closeModal();
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
                 }
             });
 
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modal.classList.contains('show')) {
-                    closeModal();
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
                 }
             });
-
-            function closeModal() {
-                modal.classList.remove('show');
-                document.body.style.overflow = '';
-            }
         })();
     </script>
 </body>
