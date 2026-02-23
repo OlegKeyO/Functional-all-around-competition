@@ -1226,19 +1226,46 @@
             right: -30px;
         }
 
-        /* Табы — изменено: border-radius теперь 4px, как у кнопок в Hero */
+        /* Табы с горизонтальной прокруткой */
         .albums-tabs {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
+            align-items: center;
             gap: 1.5rem;
             margin: 2rem 0 3rem;
-            flex-wrap: wrap;
+            padding: 0 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary) var(--primary);
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+
+        .albums-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .albums-tabs::-webkit-scrollbar-track {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .albums-tabs::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .albums-tabs::-webkit-scrollbar-thumb:hover {
+            background: #a00d24;
         }
 
         .album-tab {
+            flex: 0 0 auto;
             background: #2a2a3a;
             border: 2px solid var(--primary);
-            border-radius: 4px;  /* изменено с 40px на 4px */
+            border-radius: 4px;
             padding: 0.8rem 2rem;
             font-weight: 700;
             color: #fff;
@@ -1435,6 +1462,7 @@
             }
             .albums-tabs {
                 gap: 0.8rem;
+                padding: 0 10px;
             }
             .album-tab {
                 padding: 0.6rem 1.2rem;
@@ -1454,7 +1482,7 @@
             }
         }
 
-        /* Модальное окно для галереи */
+        /* Модальное окно для галереи с навигацией */
         .modal {
             display: none;
             position: fixed;
@@ -1481,6 +1509,8 @@
             border-radius: 8px;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
             animation: zoomIn 0.3s ease;
+            position: relative;
+            z-index: 2001;
         }
 
         @keyframes zoomIn {
@@ -1498,12 +1528,51 @@
             cursor: pointer;
             transition: 0.3s;
             line-height: 1;
-            z-index: 2001;
+            z-index: 2002;
         }
 
         .modal-close:hover {
             color: var(--secondary);
             transform: rotate(90deg);
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 2002;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            user-select: none;
+        }
+
+        .modal-nav:hover {
+            color: var(--secondary);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .modal-nav.prev {
+            left: 20px;
+        }
+
+        .modal-nav.next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-nav {
+                font-size: 2rem;
+                padding: 10px;
+            }
+            .modal-close {
+                font-size: 2.5rem;
+                top: 10px;
+                right: 20px;
+            }
         }
     </style>
 </head>
@@ -1633,11 +1702,12 @@
                         <div class="gallery-subtitle">Фото с тренировок и соревнований</div>
                     </div>
 
-                    <!-- Вкладки альбомов с иконками -->
+                    <!-- Вкладки альбомов с иконками (горизонтальная прокрутка) -->
                     <div class="albums-tabs">
                         <button class="album-tab active" data-album="competitions1"><i class="fas fa-trophy"></i> Соревнования 2025</button>
                         <button class="album-tab" data-album="competitions2"><i class="fas fa-medal"></i> Соревнования 2024</button>
                         <button class="album-tab" data-album="workouts"><i class="fas fa-dumbbell"></i> Тренировки</button>
+                        <!-- При добавлении новых альбомов они просто появятся здесь и будут доступны через скролл -->
                     </div>
 
                     <!-- Счётчик фото -->
@@ -2581,12 +2651,15 @@
             }
         });
 
-        // Модальное окно для галереи (исправлено: обработчик на .gallery-item)
+        // Модальное окно для галереи с навигацией по альбому
         (function() {
+            // Создаём модальное окно, если его нет
             if (!document.getElementById('galleryModal')) {
                 const modalHTML = `
                     <div id="galleryModal" class="modal">
                         <span class="modal-close">&times;</span>
+                        <div class="modal-nav prev" id="modalPrev">&#10094;</div>
+                        <div class="modal-nav next" id="modalNext">&#10095;</div>
                         <img class="modal-content" id="modalImage" src="" alt="Увеличенное фото">
                     </div>
                 `;
@@ -2596,17 +2669,39 @@
             const modal = document.getElementById('galleryModal');
             const modalImg = document.getElementById('modalImage');
             const closeBtn = document.querySelector('.modal-close');
+            const prevBtn = document.getElementById('modalPrev');
+            const nextBtn = document.getElementById('modalNext');
 
-            // Исправлено: обработчик на весь блок .gallery-item, а не только на img
+            let currentImages = [];
+            let currentIndex = 0;
+
+            function updateModalImage(index) {
+                if (currentImages.length > 0 && index >= 0 && index < currentImages.length) {
+                    modalImg.src = currentImages[index];
+                    currentIndex = index;
+                }
+            }
+
             document.querySelectorAll('.gallery-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const img = this.querySelector('img');
-                    if (img) {
-                        modal.classList.add('show');
-                        modalImg.src = img.src;
-                        modalImg.alt = img.alt;
-                        document.body.style.overflow = 'hidden';
+                    if (!img) return;
+
+                    const activeAlbum = document.querySelector('.gallery-grid.active-album');
+                    if (activeAlbum) {
+                        const images = activeAlbum.querySelectorAll('.gallery-item img');
+                        currentImages = Array.from(images).map(img => img.src);
+                        const clickedSrc = img.src;
+                        currentIndex = currentImages.findIndex(src => src === clickedSrc);
+                    } else {
+                        currentImages = [img.src];
+                        currentIndex = 0;
                     }
+
+                    modal.classList.add('show');
+                    modalImg.src = img.src;
+                    modalImg.alt = img.alt;
+                    document.body.style.overflow = 'hidden';
                 });
             });
 
@@ -2624,8 +2719,38 @@
                 }
             });
 
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (currentImages.length > 0) {
+                        let newIndex = currentIndex - 1;
+                        if (newIndex < 0) newIndex = currentImages.length - 1;
+                        updateModalImage(newIndex);
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (currentImages.length > 0) {
+                        let newIndex = currentIndex + 1;
+                        if (newIndex >= currentImages.length) newIndex = 0;
+                        updateModalImage(newIndex);
+                    }
+                });
+            }
+
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                if (!modal.classList.contains('show')) return;
+                
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    if (prevBtn) prevBtn.click();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    if (nextBtn) nextBtn.click();
+                } else if (e.key === 'Escape') {
                     modal.classList.remove('show');
                     document.body.style.overflow = '';
                 }
