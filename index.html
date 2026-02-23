@@ -1158,62 +1158,180 @@
             }
         }
 
-        /* ===== НОВЫЕ СТИЛИ ДЛЯ ГАЛЕРЕИ С АЛЬБОМАМИ ===== */
+        /* ===== СОВРЕМЕННАЯ ГАЛЕРЕЯ В СТИЛЕ КРОССФИТ ===== */
+        .gallery-section {
+            background: linear-gradient(145deg, #1e1e2f 0%, #2a2a3a 100%);
+            padding: 4rem 0;
+            margin: 3rem 0 0;
+            position: relative;
+            border-top: 4px solid var(--secondary);
+            border-bottom: 4px solid var(--secondary);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M20 20 L80 20 L80 80 L20 80 Z" stroke="%23c8102e" fill="none" stroke-width="2"/><circle cx="50" cy="50" r="20" stroke="%23f5a623" fill="none" stroke-width="2"/></svg>');
+            background-size: 50px;
+            pointer-events: none;
+        }
+
+        .gallery-title-wrapper {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .gallery-main-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 4px 4px 0 var(--secondary), 8px 8px 0 rgba(0,0,0,0.2);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-subtitle {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+
+        .gallery-subtitle::before,
+        .gallery-subtitle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .gallery-subtitle::before {
+            left: -30px;
+        }
+
+        .gallery-subtitle::after {
+            right: -30px;
+        }
+
+        /* Табы */
         .albums-tabs {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
             flex-wrap: wrap;
         }
 
         .album-tab {
-            padding: 0.8rem 2rem;
-            background: #eee;
-            border: none;
+            background: #2a2a3a;
+            border: 2px solid var(--primary);
             border-radius: 40px;
-            font-weight: 600;
-            color: var(--primary);
+            padding: 0.8rem 2rem;
+            font-weight: 700;
+            color: #fff;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             font-size: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .album-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
 
         .album-tab:hover {
-            background: #ddd;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+            border-color: var(--secondary);
+        }
+
+        .album-tab:hover::before {
+            left: 100%;
         }
 
         .album-tab.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(26, 43, 92, 0.3);
+            background: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: 0 5px 0 #8b0e26;
         }
 
+        .album-tab i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        .album-tab.active i {
+            color: white;
+        }
+
+        /* Сетка галереи */
         .gallery-grid {
-            display: none; /* Скрыты по умолчанию */
+            display: none;
             grid-template-columns: repeat(5, 1fr);
             gap: 1.5rem;
         }
 
         .gallery-grid.active-album {
-            display: grid; /* Показываем только активный */
+            display: grid;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
             aspect-ratio: 1 / 1;
             cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg, rgba(200,16,46,0.2), rgba(26,43,92,0.5));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+            border-radius: 12px;
         }
 
         .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 25px 40px rgba(200,16,46,0.4);
+            border-color: var(--secondary);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
         }
 
         .gallery-item img {
@@ -1221,22 +1339,122 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
-        .gallery-note {
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-overlay i {
+            background: var(--secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-item-overlay i {
+            transform: scale(1);
+        }
+
+        /* Счётчик фото (опционально) */
+        .album-stats {
             text-align: center;
-            margin-top: 1.5rem;
-            color: var(--gray);
-            font-style: italic;
+            margin: 2rem 0 1rem;
+            color: rgba(255,255,255,0.7);
             font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
-        /* Модальное окно */
+        .album-stats span {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Анимация появления при скролле */
+        .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Адаптивность галереи */
+        @media (max-width: 992px) {
+            .gallery-grid.active-album {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .gallery-main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid.active-album {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .albums-tabs {
+                gap: 0.8rem;
+            }
+            .album-tab {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .gallery-main-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid.active-album {
+                grid-template-columns: 1fr;
+            }
+            .gallery-section {
+                padding: 2rem 0;
+            }
+        }
+
+        /* Модальное окно для галереи */
         .modal {
             display: none;
             position: fixed;
@@ -1287,32 +1505,6 @@
             color: var(--secondary);
             transform: rotate(90deg);
         }
-
-        /* Адаптивность для галереи */
-        @media (max-width: 992px) {
-            .gallery-grid.active-album {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .gallery-grid.active-album {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.8rem;
-            }
-            .album-tab {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .gallery-grid.active-album {
-                grid-template-columns: 1fr;
-            }
-        }
-        /* ===== КОНЕЦ НОВЫХ СТИЛЕЙ ===== */
     </style>
 </head>
 <body>
@@ -1433,78 +1625,104 @@
                 </div>
             </div>
 
-            <!-- ===== НОВАЯ ГАЛЕРЕЯ С ТРЕМЯ АЛЬБОМАМИ ===== -->
-            <div class="gallery-wrapper fade-in">
-                <h3 class="gallery-title">Фото с соревнований и тренировок</h3>
+            <!-- Современная галерея в стиле кроссфит -->
+            <div class="gallery-section fade-in">
+                <div class="container">
+                    <div class="gallery-title-wrapper">
+                        <h2 class="gallery-main-title">Моменты силы</h2>
+                        <div class="gallery-subtitle">Фото с тренировок и соревнований</div>
+                    </div>
 
-                <!-- Вкладки альбомов -->
-                <div class="albums-tabs">
-                    <button class="album-tab active" data-album="competitions1">Соревнования 2025</button>
-                    <button class="album-tab" data-album="competitions2">Соревнования 2024</button>
-                    <button class="album-tab" data-album="workouts">Тренировки</button>
+                    <!-- Вкладки альбомов с иконками -->
+                    <div class="albums-tabs">
+                        <button class="album-tab active" data-album="competitions1"><i class="fas fa-trophy"></i> Соревнования 2025</button>
+                        <button class="album-tab" data-album="competitions2"><i class="fas fa-medal"></i> Соревнования 2024</button>
+                        <button class="album-tab" data-album="workouts"><i class="fas fa-dumbbell"></i> Тренировки</button>
+                    </div>
+
+                    <!-- Счётчик фото -->
+                    <div class="album-stats">
+                        <span id="photoCount">5</span> фотографий в этом альбоме
+                    </div>
+
+                    <!-- Альбом "Соревнования 2025" (competitions1) -->
+                    <div id="gallery-competitions1" class="gallery-grid active-album">
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions1/competition1.jpg" alt="Соревнования 2025 - фото 1" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions1/competition2.jpg" alt="Соревнования 2025 - фото 2" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions1/competition3.jpg" alt="Соревнования 2025 - фото 3" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions1/competition4.jpg" alt="Соревнования 2025 - фото 4" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions1/competition5.jpg" alt="Соревнования 2025 - фото 5" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Альбом "Соревнования 2024" (competitions2) -->
+                    <div id="gallery-competitions2" class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions2/competition1.jpg" alt="Соревнования 2024 - фото 1" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions2/competition2.jpg" alt="Соревнования 2024 - фото 2" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions2/competition3.jpg" alt="Соревнования 2024 - фото 3" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions2/competition4.jpg" alt="Соревнования 2024 - фото 4" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/competitions2/competition5.jpg" alt="Соревнования 2024 - фото 5" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Альбом "Тренировки" (workouts) -->
+                    <div id="gallery-workouts" class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="images/albums/workouts/workout1.jpg" alt="Тренировки - фото 1" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/workouts/workout2.jpg" alt="Тренировки - фото 2" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/workouts/workout3.jpg" alt="Тренировки - фото 3" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/workouts/workout4.jpg" alt="Тренировки - фото 4" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/albums/workouts/workout5.jpg" alt="Тренировки - фото 5" loading="lazy">
+                            <div class="gallery-item-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Подпись с намёком на новые фото -->
+                    <p class="gallery-note" style="color: #aaa; text-align: center; margin-top: 2rem;">
+                        <i class="fas fa-camera"></i> В планах — добавить ещё больше ярких моментов
+                    </p>
                 </div>
-
-                <!-- Альбом "Соревнования 2025" (competitions1) -->
-                <div id="gallery-competitions1" class="gallery-grid active-album">
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions1/competition1.jpg" alt="Соревнования 2025 - фото 1" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions1/competition2.jpg" alt="Соревнования 2025 - фото 2" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions1/competition3.jpg" alt="Соревнования 2025 - фото 3" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions1/competition4.jpg" alt="Соревнования 2025 - фото 4" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions1/competition5.jpg" alt="Соревнования 2025 - фото 5" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Альбом "Соревнования 2024" (competitions2) -->
-                <div id="gallery-competitions2" class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions2/competition1.jpg" alt="Соревнования 2024 - фото 1" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions2/competition2.jpg" alt="Соревнования 2024 - фото 2" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions2/competition3.jpg" alt="Соревнования 2024 - фото 3" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions2/competition4.jpg" alt="Соревнования 2024 - фото 4" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/competitions2/competition5.jpg" alt="Соревнования 2024 - фото 5" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Альбом "Тренировки" (workouts) -->
-                <div id="gallery-workouts" class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="images/albums/workouts/workout1.jpg" alt="Тренировки - фото 1" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/workouts/workout2.jpg" alt="Тренировки - фото 2" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/workouts/workout3.jpg" alt="Тренировки - фото 3" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/workouts/workout4.jpg" alt="Тренировки - фото 4" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/albums/workouts/workout5.jpg" alt="Тренировки - фото 5" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Подпись (опционально) -->
-                <p class="gallery-note">Скоро добавим ещё альбомы с фотографиями</p>
             </div>
-            <!-- ===== КОНЕЦ НОВОЙ ГАЛЕРЕИ ===== -->
         </div>
     </section>
 
@@ -2327,28 +2545,34 @@
                 }
             }
 
-            // ===== НОВЫЙ КОД ДЛЯ ПЕРЕКЛЮЧЕНИЯ АЛЬБОМОВ =====
+            // Переключение альбомов галереи
             const albumTabs = document.querySelectorAll('.album-tab');
             const albums = document.querySelectorAll('.gallery-grid');
+
+            function updatePhotoCount(albumId) {
+                const activeAlbum = document.getElementById(`gallery-${albumId}`);
+                if (activeAlbum) {
+                    const count = activeAlbum.querySelectorAll('.gallery-item').length;
+                    document.getElementById('photoCount').textContent = count;
+                }
+            }
 
             albumTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const albumId = this.dataset.album;
-
-                    // Обновляем активную вкладку
                     albumTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-
-                    // Показываем нужный альбом
                     albums.forEach(album => {
                         album.classList.remove('active-album');
                         if (album.id === `gallery-${albumId}`) {
                             album.classList.add('active-album');
                         }
                     });
+                    updatePhotoCount(albumId);
                 });
             });
-            // ===== КОНЕЦ НОВОГО КОДА =====
+
+            updatePhotoCount('competitions1');
         });
         
         document.addEventListener('visibilitychange', function() {
@@ -2357,7 +2581,7 @@
             }
         });
 
-        // === Галерея и модальное окно (работает для всех фото) ===
+        // Модальное окно для галереи
         (function() {
             if (!document.getElementById('galleryModal')) {
                 const modalHTML = `
