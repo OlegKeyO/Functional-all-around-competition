@@ -1226,21 +1226,21 @@
             right: -30px;
         }
 
-        /* Табы с горизонтальной прокруткой */
+        /* Табы с горизонтальной прокруткой (убрали overflow-y: hidden) */
         .albums-tabs {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center; /* по умолчанию центрирование */
             align-items: center;
             gap: 1.5rem;
             margin: 2rem 0 3rem;
             padding: 0 20px;
             overflow-x: auto;
-            overflow-y: hidden;
             flex-wrap: nowrap;
             scrollbar-width: thin;
             scrollbar-color: var(--secondary) var(--primary);
             -webkit-overflow-scrolling: touch;
             cursor: grab;
+            transition: justify-content 0.2s;
         }
 
         .albums-tabs::-webkit-scrollbar {
@@ -1703,7 +1703,7 @@
                     </div>
 
                     <!-- Вкладки альбомов с иконками (горизонтальная прокрутка) -->
-                    <div class="albums-tabs">
+                    <div class="albums-tabs" id="albumsTabs">
                         <button class="album-tab active" data-album="competitions1"><i class="fas fa-trophy"></i> Соревнования 2025</button>
                         <button class="album-tab" data-album="competitions2"><i class="fas fa-medal"></i> Соревнования 2024</button>
                         <button class="album-tab" data-album="workouts"><i class="fas fa-dumbbell"></i> Тренировки</button>
@@ -2643,6 +2643,18 @@
             });
 
             updatePhotoCount('competitions1');
+
+            // Функция для центрирования табов в зависимости от переполнения
+            const tabsContainer = document.getElementById('albumsTabs');
+            function adjustTabsAlignment() {
+                if (tabsContainer.scrollWidth > tabsContainer.clientWidth) {
+                    tabsContainer.style.justifyContent = 'flex-start';
+                } else {
+                    tabsContainer.style.justifyContent = 'center';
+                }
+            }
+            adjustTabsAlignment();
+            window.addEventListener('resize', adjustTabsAlignment);
         });
         
         document.addEventListener('visibilitychange', function() {
