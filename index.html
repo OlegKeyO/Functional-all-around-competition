@@ -1226,15 +1226,16 @@
             right: -30px;
         }
 
-        /* Табы с горизонтальной прокруткой (убрали overflow-y: hidden) */
+        /* Табы с горизонтальной прокруткой - исправлено исчезновение верхней рамки */
         .albums-tabs {
             display: flex;
-            justify-content: center; /* по умолчанию центрирование */
+            justify-content: center;
             align-items: center;
             gap: 1.5rem;
             margin: 2rem 0 3rem;
             padding: 0 20px;
             overflow-x: auto;
+            overflow-y: visible; /* важно: чтобы верхняя граница не обрезалась */
             flex-wrap: nowrap;
             scrollbar-width: thin;
             scrollbar-color: var(--secondary) var(--primary);
@@ -1277,6 +1278,7 @@
             box-shadow: 0 5px 0 rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         .album-tab::before {
@@ -1288,12 +1290,14 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: left 0.5s;
+            z-index: -1; /* убираем перекрытие border */
         }
 
         .album-tab:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 0 rgba(0,0,0,0.3);
-            border-color: var(--secondary);
+            border-color: var(--secondary); /* рамка остаётся красной */
+            z-index: 2; /* поднимаем над соседями */
         }
 
         .album-tab:hover::before {
